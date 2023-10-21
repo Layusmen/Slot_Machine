@@ -1,5 +1,6 @@
 ﻿using System;
 
+
 namespace Slot_Machine
 {
     static class Program
@@ -54,32 +55,39 @@ namespace Slot_Machine
                 }
             }
 
+            // Check for a win on vertical lines
             bool verticalWin = false;
             for (int column = 0; column < CUSTOM_COLUMN_COUNT; column++)
             {
-                if (slots_Output[column, 0] == slots_Output[column, 1] && slots_Output[column, 1] == slots_Output[column, 2])
+                if (slots_Output[0, column] == slots_Output[1, column] && slots_Output[1, column] == slots_Output[2, column])
                 {
                     verticalWin = true;
                     break; // Exit the loop as we've found a win
                 }
             }
-            // Check for a win on the diagonal lines
 
+            // Check for a win on the diagonal lines
+            bool diagonalWin = false;
+
+            if (slots_Output[0, 0] == slots_Output[1, 1] && slots_Output[1, 1] == slots_Output[2, 2])
+            {
+                diagonalWin = true;
+            }
+            else if (slots_Output[0, 2] == slots_Output[1, 1] && slots_Output[1, 1] == slots_Output[2, 0])
+            {
+                diagonalWin = true;
+            }
 
             // Check for a win and display the outcome
-            if (horizontalWin && verticalWin)
+            if (horizontalWin && verticalWin || horizontalWin && diagonalWin || verticalWin && diagonalWin)
             {
-                Console.WriteLine("Congratulations! You won on both horizontal and vertical lines!");
-            }
-            else if (horizontalWin)
-            {
-                Console.WriteLine("Congratulations! You won on horizontal line!");
-            }
-            else if (verticalWin)
-            {
-                Console.WriteLine("Congratulations! You won on vertical line");
+                Console.WriteLine("Congratulations! You won on two lines!");
             }
 
+            else if (horizontalWin || verticalWin || diagonalWin)
+            {
+                Console.WriteLine("Congratulations! You won!");
+            }
             else
             {
                 Console.WriteLine("Sorry, you didn't win on any line. Better luck next time!");
