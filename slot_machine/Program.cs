@@ -79,12 +79,7 @@ namespace Slot_Machine
             }
 
             // Check for a win and display the outcome
-            if (horizontalWin && verticalWin || horizontalWin && diagonalWin || verticalWin && diagonalWin)
-            {
-                Console.WriteLine("Congratulations! You won on two lines!");
-            }
-
-            else if (horizontalWin || verticalWin || diagonalWin)
+            if (horizontalWin || verticalWin || diagonalWin)
             {
                 Console.WriteLine("Congratulations! You won!");
             }
