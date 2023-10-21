@@ -53,7 +53,7 @@ namespace Slot_Machine
                     break; // Exit the loop as we've found a win
                 }
             }
-            
+
             bool verticalWin = false;
             for (int column = 0; column < CUSTOM_COLUMN_COUNT; column++)
             {
@@ -63,6 +63,7 @@ namespace Slot_Machine
                     break; // Exit the loop as we've found a win
                 }
             }
+            // Check for a win on the diagonal lines
 
 
             // Check for a win and display the outcome
