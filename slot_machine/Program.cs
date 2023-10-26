@@ -22,12 +22,12 @@ namespace Slot_Machine
 
             // Random Generator
             Random randomPickGenerator = new Random();
-            List<string> slotSymbols = new List<string>()
-            {
-                "A", "1", "5", "7", "$", "M", "8", "9", "!", "#", "Q", "&", "C", "S", "Y", "V", "W", "R", "L", "F"
-            };
+            List<char> slotSymbols = new List<char>()
+             {
+                    'A', '1', '5', '7', '$', 'M', '8', '9', '!', '#', 'Q', '&', 'C', 'S', 'Y', 'V', 'W', 'R', 'L', 'F'
+              };
 
-            string[,] slots_Output = new string[CUSTOM_ROW_COUNT, CUSTOM_COLUMN_COUNT];
+            char[,] slots_Output = new char[CUSTOM_ROW_COUNT, CUSTOM_COLUMN_COUNT];
 
             // Display the result
             Console.WriteLine("\nSlot Machine Results: \n");
