@@ -51,7 +51,6 @@ namespace Slot_Machine
                 if (slots_Output[row, 0] == slots_Output[row, 1] && slots_Output[row, 1] == slots_Output[row, 2])
                 {
                     horizontalWin = true;
-                    break; // Exit the loop as we've found a win
                 }
             }
 
@@ -62,7 +61,6 @@ namespace Slot_Machine
                 if (slots_Output[0, column] == slots_Output[1, column] && slots_Output[1, column] == slots_Output[2, column])
                 {
                     verticalWin = true;
-                    //break; // Exit the loop as we've found a win
                 }
             }
 
