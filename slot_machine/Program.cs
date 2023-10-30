@@ -8,8 +8,8 @@ namespace Slot_Machine
         static void Main(string[] args)
         {
             // Constants
-            const int CUSTOM_ROW_COUNT = 3;
-            const int CUSTOM_COLUMN_COUNT = 3;
+            const int ROW_COUNT = 3;
+            const int COLUMN_COUNT = 3;
 
             // First messages
             Console.WriteLine(@"Welcome to the Amazing Slot Machine!
@@ -26,14 +26,14 @@ namespace Slot_Machine
                     'A', '1', '5', '7', '$', 'M', '8', '9', '!', '#', 'Q', '&', 'C', 'S', 'Y', 'V', 'W', 'R', 'L', 'F'
               };
 
-            char[,] slots_Output = new char[CUSTOM_ROW_COUNT, CUSTOM_COLUMN_COUNT];
+            char[,] slots_Output = new char[ROW_COUNT, COLUMN_COUNT];
 
             // Display the result
             Console.WriteLine("\nSlot Machine Results: \n");
 
-            for (int row = 0; row < CUSTOM_ROW_COUNT; row++)
+            for (int row = 0; row < ROW_COUNT; row++)
             {
-                for (int col = 0; col < CUSTOM_COLUMN_COUNT; col++)
+                for (int col = 0; col < COLUMN_COUNT; col++)
                 {
                     int randomIndex = randomPickGenerator.Next(slotSymbols.Count);
                     slots_Output[row, col] = slotSymbols[randomIndex];
@@ -45,7 +45,7 @@ namespace Slot_Machine
             // Check for a win on horizontal lines
             bool horizontalWin = false;
 
-            for (int row = 0; row < CUSTOM_ROW_COUNT; row++)
+            for (int row = 0; row < ROW_COUNT; row++)
             {
                 if (slots_Output[row, 0] == slots_Output[row, 1] && slots_Output[row, 1] == slots_Output[row, 2])
                 {
@@ -55,7 +55,7 @@ namespace Slot_Machine
 
             // Check for a win on vertical lines
             bool verticalWin = false;
-            for (int column = 0; column < CUSTOM_COLUMN_COUNT; column++)
+            for (int column = 0; column < COLUMN_COUNT; column++)
             {
                 if (slots_Output[0, column] == slots_Output[1, column] && slots_Output[1, column] == slots_Output[2, column])
                 {
