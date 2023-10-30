@@ -12,13 +12,12 @@ namespace Slot_Machine
             const int CUSTOM_COLUMN_COUNT = 3;
 
             // First messages
-            Console.WriteLine("Welcome to the Amazing Slot Machine!");
-            Console.WriteLine("Spin the reels and win big!");
-
-            Console.WriteLine("Match three symbols in any direction to win $");
-            Console.WriteLine("Get two lines of matching symbols to win $");
-            Console.WriteLine("Hit the Jackpot with three lines of matching symbols and win $");
-            Console.WriteLine("Ready to try your luck? A spin costs $");
+            Console.WriteLine(@"Welcome to the Amazing Slot Machine!
+            Spin the reels and win big!
+            Match three symbols in any direction to win $
+            Get two lines of matching symbols to win $
+            Hit the Jackpot with three lines of matching symbols and win $
+            Ready to try your luck? A spin costs $");
 
             // Random Generator
             Random randomPickGenerator = new Random();
