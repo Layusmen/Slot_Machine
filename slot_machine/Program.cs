@@ -119,7 +119,7 @@ namespace Slot_Machine
 
 
             // Check for a win and display the outcome
-            if (horizontalWin || verticalWin || diagonalWin)
+            /*if (horizontalWin || verticalWin || diagonalWin)
             {
                 Console.WriteLine("Congratulations! You won!");
             }
@@ -127,6 +127,28 @@ namespace Slot_Machine
             {
                 Console.WriteLine("Sorry, you didn't win on any line. Better luck next time!");
             }
+            */
+
+            // Check for a win and display the outcome
+            int totalWins = (horizontalWin ? 1 : 0) + (verticalWin ? 1 : 0) + (diagonalWin ? 1 : 0);
+
+            switch (totalWins)
+            {
+                case 3:
+                    Console.WriteLine("Congratulations! You won on three lines!");
+                    break;
+                case 2:
+                    Console.WriteLine("Congratulations! You won on two lines!");
+                    break;
+                case 1:
+                    Console.WriteLine("Congratulations! You won on one line!");
+                    break;
+                default:
+                    Console.WriteLine("Sorry, you didn't win on any line. Better luck next time!");
+                    break;
+            }
+
+
         }
     }
 }
