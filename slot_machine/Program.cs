@@ -1,9 +1,44 @@
 ﻿using System;
+
 namespace Slot_Machine
 {
     static class Program
     {
+        static decimal moneyLeft = 0;
+
         static void Main(string[] args)
+        {
+            // First messages
+            Console.WriteLine("Welcome to the Amazing Slot Machine!");
+            Console.WriteLine("Spin the reels and win big!");
+            Console.WriteLine("How much money are you willing to play with? Enter the amount:");
+
+            // Input validation for the initial amount
+            if (decimal.TryParse(Console.ReadLine(), out decimal moneyLeftInput) && moneyLeftInput > 0)
+            {
+                moneyLeft = moneyLeftInput;
+            }
+            else
+            {
+                Console.WriteLine("Invalid input. Please enter a valid amount. Exiting the game.");
+                return;
+            }
+
+            do
+            {
+                PlaySlotMachine();
+
+                Console.WriteLine($"Your remaining balance: ${moneyLeft}");
+
+                // Formatting for better readability
+                Console.WriteLine("\nDo you want to play again? (y/n)\n");
+
+            } while (Console.ReadLine().Trim().ToLower() == "y");
+
+            Console.WriteLine("Thanks for playing! Goodbye.");
+        }
+
+        static void PlaySlotMachine()
         {
             // Constants
             const int ROW_COUNT = 3;
@@ -20,13 +55,7 @@ namespace Slot_Machine
             const int WIN_AMOUNT_THREE_LINES_ONE_VERTICAL = 100;
             const int WIN_AMOUNT_DIAGONAL = 10;
 
-            // First messages
-            Console.WriteLine("Welcome to the Amazing Slot Machine!");
-            Console.WriteLine("Spin the reels and win big!");
-            Console.WriteLine("Match three symbols in any direction to win $");
-            Console.WriteLine("Get two lines of matching symbols to win $");
-            Console.WriteLine("Hit the Jackpot with three lines of matching symbols and win $");
-            Console.WriteLine("Ready to try your luck? A spin costs $");
+            
 
             // Random Generator
             Random randomPickGenerator = new Random();
@@ -128,28 +157,13 @@ namespace Slot_Machine
                 diagonalWin = true;
             }
 
-
-            // Check for a win and display the outcome
-            /*if (horizontalWin || verticalWin || diagonalWin)
-            {
-                Console.WriteLine("Congratulations! You won!");
-            }
-            else
-            {
-                Console.WriteLine("Sorry, you didn't win on any line. Better luck next time!");
-            }
-            */
-
-
-            // Check for a win and display the outcome
             int totalWins = (horizontalWin ? 1 : 0) + (verticalWin ? 1 : 0) + (diagonalWin ? 1 : 0);
-
-
 
             switch (totalWins)
             {
                 case 3:
                     Console.WriteLine($"Congratulations! You won on three lines! You get ${COST_THREE_LINES} and win ${WIN_AMOUNT_THREE_LINES}!");
+                    moneyLeft += WIN_AMOUNT_THREE_LINES - COST_THREE_LINES;
                     break;
                 case 2:
                     Console.WriteLine($"Congratulations! You won on two lines! You get ${COST_TWO_LINES} and win ${WIN_AMOUNT_TWO_LINES}!");
@@ -168,27 +182,39 @@ namespace Slot_Machine
                     break;
             }
 
-            Console.WriteLine("\nDo you want to play again? (y/n) \n");
+            // Formatting for better readability
+            Console.WriteLine($"Your remaining balance: ${moneyLeft}\n");
+            Console.WriteLine("Do you want to play again? (y/n)\n");
 
             string userInput = Console.ReadLine();
 
-            if (userInput != null && (userInput.Trim().ToLower() == "y"))
+            if (userInput != null && userInput.Trim().ToLower() == "y")
             {
-                // Ask how much money the user wants to play if they have some money left
-                Console.WriteLine("How much money do you want to play? Enter the amount:");
-                if (decimal.TryParse(Console.ReadLine(), out decimal moneyLeft))
+                Console.WriteLine("How much money are you willing to play with? Enter the amount:");
+
+                // Input validation for the amount to play with
+                if (decimal.TryParse(Console.ReadLine(), out decimal moneyLeftInput))
                 {
-                    // You can check if the user has enough money to play and proceed with the game logic.
+                    if (moneyLeftInput > 0)
+                    {
+                        moneyLeft = moneyLeftInput;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input. Exiting the game.");
+                        return;
+                    }
                 }
                 else
                 {
                     Console.WriteLine("Invalid input. Exiting the game.");
+                    return;
                 }
             }
             else
             {
                 Console.WriteLine("Thanks for playing! Goodbye.");
-                // Optionally, you can add logic to exit the program or perform other actions.
+                return;
             }
 
         }
