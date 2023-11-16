@@ -168,6 +168,29 @@ namespace Slot_Machine
                     break;
             }
 
+            Console.WriteLine("\nDo you want to play again? (y/n) \n");
+
+            string userInput = Console.ReadLine();
+
+            if (userInput != null && (userInput.Trim().ToLower() == "y"))
+            {
+                // Ask how much money the user wants to play if they have some money left
+                Console.WriteLine("How much money do you want to play? Enter the amount:");
+                if (decimal.TryParse(Console.ReadLine(), out decimal moneyLeft))
+                {
+                    // You can check if the user has enough money to play and proceed with the game logic.
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Exiting the game.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Thanks for playing! Goodbye.");
+                // Optionally, you can add logic to exit the program or perform other actions.
+            }
+
         }
     }
 }
