@@ -8,6 +8,17 @@ namespace Slot_Machine
             // Constants
             const int ROW_COUNT = 3;
             const int COLUMN_COUNT = 3;
+            const int COST_ONE_LINE = 1;
+            const int COST_TWO_LINES = 2;
+            const int COST_THREE_LINES = 3;
+            const int COST_THREE_LINES_ONE_VERTICAL = 4;
+            const int COST_DIAGONAL = 1;
+
+            const int WIN_AMOUNT_THREE_LINES = 20;
+            const int WIN_AMOUNT_TWO_LINES = 8;
+            const int WIN_AMOUNT_ONE_LINE = 4;
+            const int WIN_AMOUNT_THREE_LINES_ONE_VERTICAL = 100;
+            const int WIN_AMOUNT_DIAGONAL = 10;
 
             // First messages
             Console.WriteLine("Welcome to the Amazing Slot Machine!");
@@ -129,25 +140,33 @@ namespace Slot_Machine
             }
             */
 
+
             // Check for a win and display the outcome
             int totalWins = (horizontalWin ? 1 : 0) + (verticalWin ? 1 : 0) + (diagonalWin ? 1 : 0);
+
+
 
             switch (totalWins)
             {
                 case 3:
-                    Console.WriteLine("Congratulations! You won on three lines!");
+                    Console.WriteLine($"Congratulations! You won on three lines! You get ${COST_THREE_LINES} and win ${WIN_AMOUNT_THREE_LINES}!");
                     break;
                 case 2:
-                    Console.WriteLine("Congratulations! You won on two lines!");
+                    Console.WriteLine($"Congratulations! You won on two lines! You get ${COST_TWO_LINES} and win ${WIN_AMOUNT_TWO_LINES}!");
                     break;
                 case 1:
-                    Console.WriteLine("Congratulations! You won on one line!");
+                    Console.WriteLine($"Congratulations! You won on one line! You get ${COST_ONE_LINE} and win ${WIN_AMOUNT_ONE_LINE}!");
+                    break;
+                case 4:
+                    Console.WriteLine($"Congratulations! You won on three horizontal lines and one vertical line! You get ${COST_THREE_LINES_ONE_VERTICAL} and win ${WIN_AMOUNT_THREE_LINES_ONE_VERTICAL}!");
+                    break;
+                case 5: // Added case for winning on diagonal
+                    Console.WriteLine($"Congratulations! You won on the diagonal! You get ${COST_DIAGONAL} and win ${WIN_AMOUNT_DIAGONAL}!");
                     break;
                 default:
                     Console.WriteLine("Sorry, you didn't win on any line. Better luck next time!");
                     break;
             }
-
 
         }
     }
