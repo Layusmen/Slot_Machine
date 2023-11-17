@@ -1,44 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Slot_Machine
 {
     static class Program
     {
-        static decimal moneyLeft = 0;
-
         static void Main(string[] args)
-        {
-            // First messages
-            Console.WriteLine("Welcome to the Amazing Slot Machine!");
-            Console.WriteLine("Spin the reels and win big!");
-            Console.WriteLine("How much money are you willing to play with? Enter the amount:");
-
-            // Input validation for the initial amount
-            if (decimal.TryParse(Console.ReadLine(), out decimal moneyLeftInput) && moneyLeftInput > 0)
-            {
-                moneyLeft = moneyLeftInput;
-            }
-            else
-            {
-                Console.WriteLine("Invalid input. Please enter a valid amount. Exiting the game.");
-                return;
-            }
-
-            do
-            {
-                PlaySlotMachine();
-
-                Console.WriteLine($"Your remaining balance: ${moneyLeft}");
-
-                // Formatting for better readability
-                Console.WriteLine("\nDo you want to play again? (y/n)\n");
-
-            } while (Console.ReadLine().Trim().ToLower() == "y");
-
-            Console.WriteLine("Thanks for playing! Goodbye.");
-        }
-
-        static void PlaySlotMachine()
         {
             // Constants
             const int ROW_COUNT = 3;
@@ -55,7 +22,15 @@ namespace Slot_Machine
             const int WIN_AMOUNT_THREE_LINES_ONE_VERTICAL = 100;
             const int WIN_AMOUNT_DIAGONAL = 10;
 
-            
+            decimal moneyLeft = 0; // Declare the variable
+
+            // First messages
+            Console.WriteLine("Welcome to the Amazing Slot Machine!");
+            Console.WriteLine("Spin the reels and win big!");
+            Console.WriteLine("Match three symbols in any direction to win $");
+            Console.WriteLine("Get two lines of matching symbols to win $");
+            Console.WriteLine("Hit the Jackpot with three lines of matching symbols and win $");
+            Console.WriteLine("Ready to try your luck? A spin costs $");
 
             // Random Generator
             Random randomPickGenerator = new Random();
@@ -94,6 +69,7 @@ namespace Slot_Machine
                     {
                         // If any symbol is different, set the flag to false and break
                         isHorizontalWin = false;
+                        break; // Added break statement
                     }
                 }
 
@@ -102,9 +78,9 @@ namespace Slot_Machine
                 {
                     horizontalWin = true;
                     // You can also break here if you want to stop checking the other rows
+                    break; // Added break statement
                 }
             }
-
 
             // Check for a win on vertical lines
             bool verticalWin = false;
@@ -116,12 +92,13 @@ namespace Slot_Machine
                     if (slots_Output[row, column] != slots_Output[0, column])
                     {
                         isVerticalWin = false;
-
+                        break; // Added break statement
                     }
                 }
                 if (isVerticalWin)
                 {
                     verticalWin = true;
+                    break; // Added break statement
                 }
             }
 
@@ -147,9 +124,10 @@ namespace Slot_Machine
             bool isSecondaryDiagonalWin = true;
             for (int i = 1; i < ROW_COUNT; i++)
             {
-                if (slots_Output[i, ROW_COUNT - 1 - i] != slots_Output[0, ROW_COUNT - 1])
+                if (slots_Output[i, COLUMN_COUNT - 1 - i] != slots_Output[0, COLUMN_COUNT - 1])
                 {
                     isSecondaryDiagonalWin = false;
+                    break; // Added break statement
                 }
             }
             if (isSecondaryDiagonalWin)
@@ -157,13 +135,14 @@ namespace Slot_Machine
                 diagonalWin = true;
             }
 
+            // Check for a win and display the outcome
             int totalWins = (horizontalWin ? 1 : 0) + (verticalWin ? 1 : 0) + (diagonalWin ? 1 : 0);
 
             switch (totalWins)
             {
                 case 3:
-                    Console.WriteLine($"Congratulations! You won on three lines! You get ${COST_THREE_LINES} and win ${WIN_AMOUNT_THREE_LINES}!");
-                    moneyLeft += WIN_AMOUNT_THREE_LINES - COST_THREE_LINES;
+                    Console.WriteLine($"Congratulations! You won on three lines! You get ${COST_THREE_LINES * 3} and win ${WIN_AMOUNT_THREE_LINES}!");
+                    moneyLeft += WIN_AMOUNT_THREE_LINES - COST_THREE_LINES * 3;
                     break;
                 case 2:
                     Console.WriteLine($"Congratulations! You won on two lines! You get ${COST_TWO_LINES} and win ${WIN_AMOUNT_TWO_LINES}!");
@@ -174,7 +153,7 @@ namespace Slot_Machine
                 case 4:
                     Console.WriteLine($"Congratulations! You won on three horizontal lines and one vertical line! You get ${COST_THREE_LINES_ONE_VERTICAL} and win ${WIN_AMOUNT_THREE_LINES_ONE_VERTICAL}!");
                     break;
-                case 5: // Added case for winning on diagonal
+                case 5:
                     Console.WriteLine($"Congratulations! You won on the diagonal! You get ${COST_DIAGONAL} and win ${WIN_AMOUNT_DIAGONAL}!");
                     break;
                 default:
@@ -182,17 +161,15 @@ namespace Slot_Machine
                     break;
             }
 
-            // Formatting for better readability
-            Console.WriteLine($"Your remaining balance: ${moneyLeft}\n");
-            Console.WriteLine("Do you want to play again? (y/n)\n");
+            Console.WriteLine($"Your remaining balance: ${moneyLeft}");
+
+            Console.WriteLine("\nDo you want to play again? (y/n) \n");
 
             string userInput = Console.ReadLine();
 
             if (userInput != null && userInput.Trim().ToLower() == "y")
             {
                 Console.WriteLine("How much money are you willing to play with? Enter the amount:");
-
-                // Input validation for the amount to play with
                 if (decimal.TryParse(Console.ReadLine(), out decimal moneyLeftInput))
                 {
                     if (moneyLeftInput > 0)
@@ -214,9 +191,8 @@ namespace Slot_Machine
             else
             {
                 Console.WriteLine("Thanks for playing! Goodbye.");
-                return;
+                Environment.Exit(0);
             }
-
         }
     }
 }
