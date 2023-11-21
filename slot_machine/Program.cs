@@ -63,9 +63,9 @@ namespace Slot_Machine
                     // Compare the current symbol to the first symbol in the row
                     if (slots_Output[row, column] != slots_Output[row, 0])
                     {
-                        // If any symbol is different, set the flag to false and break
+                        // If any symbol is different, set the flag to false and continue
                         isHorizontalWin = false;
-                        break; // Added break statement
+                        continue; // Added continue statement
                     }
                 }
 
@@ -73,8 +73,8 @@ namespace Slot_Machine
                 if (isHorizontalWin)
                 {
                     horizontalWin = true;
-                    // You can also break here if you want to stop checking the other rows
-                    break; // Added break statement
+                    // You can also continue here if you want to stop checking the other rows
+                    continue; // Added continue statement
                 }
             }
 
@@ -88,13 +88,13 @@ namespace Slot_Machine
                     if (slots_Output[row, column] != slots_Output[0, column])
                     {
                         isVerticalWin = false;
-                        break; // Added break statement
+                        continue; // Added continue statement
                     }
                 }
                 if (isVerticalWin)
                 {
                     verticalWin = true;
-                    break; // Added break statement
+                    continue; // Added continue statement
                 }
             }
 
@@ -108,7 +108,7 @@ namespace Slot_Machine
                 if (slots_Output[i, i] != slots_Output[0, 0])
                 {
                     isMainDiagonalWin = false;
-                    break;
+                    continue;
                 }
             }
             if (isMainDiagonalWin)
@@ -123,7 +123,7 @@ namespace Slot_Machine
                 if (slots_Output[i, COLUMN_COUNT - 1 - i] != slots_Output[0, COLUMN_COUNT - 1])
                 {
                     isSecondaryDiagonalWin = false;
-                    break; // Added break statement
+                    continue; // Added continue statement
                 }
             }
             if (isSecondaryDiagonalWin)
