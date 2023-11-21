@@ -65,7 +65,7 @@ namespace Slot_Machine
                     {
                         // If any symbol is different, set the flag to false and break
                         isHorizontalWin = false;
-                        break; // Added break statement
+                        continue ; // Added break statement
                     }
                 }
 
@@ -74,7 +74,7 @@ namespace Slot_Machine
                 {
                     horizontalWin = true;
                     // You can also break here if you want to stop checking the other rows
-                    break; // Added break statement
+                    continue;// Added break statement
                 }
             }
 
@@ -88,13 +88,13 @@ namespace Slot_Machine
                     if (slots_Output[row, column] != slots_Output[0, column])
                     {
                         isVerticalWin = false;
-                        break; // Added break statement
+                        continue; // Added break statement
                     }
                 }
                 if (isVerticalWin)
                 {
                     verticalWin = true;
-                    break; // Added break statement
+                    continue; // Added break statement
                 }
             }
 
@@ -108,7 +108,7 @@ namespace Slot_Machine
                 if (slots_Output[i, i] != slots_Output[0, 0])
                 {
                     isMainDiagonalWin = false;
-                    break;
+                    continue;
                 }
             }
             if (isMainDiagonalWin)
@@ -123,7 +123,7 @@ namespace Slot_Machine
                 if (slots_Output[i, COLUMN_COUNT - 1 - i] != slots_Output[0, COLUMN_COUNT - 1])
                 {
                     isSecondaryDiagonalWin = false;
-                    break; // Added break statement
+                    continue; // Added break statement
                 }
             }
             if (isSecondaryDiagonalWin)
