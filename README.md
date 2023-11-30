@@ -14,10 +14,11 @@ Match three symbols in any direction to win money! The game checks for wins in b
 
 ## Game Rules
 
-- Play center line with $2 and win $30.
-- Play all three horizontal lines with $2, if the top line wins a combination, you earn $20, if middle line or base line, you earn $5. 
-- Play all vertical lines with $2, if first line wins a combination, you earn $20, if second line or third line, you earn $5.
-- Play diagonals with $2, if any of it has a winning combination, you win $20!
+- Play all three horizontal lines with $2, if the top line wins a combination, you earn $20, if middle line or base line wins, you earn $5. 
+- Play horizontal center line with $2 and win $30.
+- Play all vertical lines with $2, if first line wins a combination, you earn $20, if second line or third line win, you earn $5.
+- Play vertical center line with $2 and win $30.
+- Play diagonals with $2, if any of it has a winning combination, you win $20.
 
 ## How to Run
 
