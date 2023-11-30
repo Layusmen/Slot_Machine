@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace Slot_Machine
 {
     static class Program
@@ -12,6 +13,18 @@ namespace Slot_Machine
             // First messages
             Console.WriteLine("Welcome to the Amazing Slot Machine!");
             Console.WriteLine("Spin the reels and win big!");
+
+            // Display betting options
+            Console.WriteLine("**Betting Options:**");
+            Console.WriteLine("- Play all three horizontal lines with $2: Earn $20 for top line wins, $5 for middle or base line wins.");
+            Console.WriteLine("- Play horizontal center line with $2: Earn $30.");
+            Console.WriteLine("- Play all vertical lines with $2: Earn $20 for first line wins, $5 for second or third line wins.");
+            Console.WriteLine("- Play vertical center line with $2: Earn $30.");
+            Console.WriteLine("- Play diagonals with $2: Earn $20 for any winning combination.");
+
+            // Prompt the user to choose a betting option
+            Console.Write("\nPlease choose a betting option: ");
+            string bettingOption = Console.ReadLine().ToLower();
 
 
             // Random Generator
@@ -38,10 +51,12 @@ namespace Slot_Machine
             }
 
             // Check for a win on vertical lines
-            bool verticalWin = false;
+            int verticalWinsCount = 0;
+
             for (int column = 0; column < slots_Output.GetLength(1); column++)
             {
                 bool isVerticalWin = true;
+
                 for (int row = 1; row < slots_Output.GetLength(0); row++)
                 {
                     if (slots_Output[row, column] != slots_Output[row - 1, column])
@@ -50,15 +65,26 @@ namespace Slot_Machine
                         break;
                     }
                 }
+
                 if (isVerticalWin)
                 {
-                    verticalWin = true;
-                    break; // Don't check other columns if there's a vertical win
+                    verticalWinsCount++;
                 }
             }
 
+            // Output the result
+            if (verticalWinsCount > 0)
+            {
+                Console.WriteLine($"Congratulations! You won on {verticalWinsCount} vertical lines!");
+            }
+            else
+            {
+                Console.WriteLine("Sorry, you didn't win on any vertical line. Better luck next time!");
+            }
+
+
             // Check for a win on horizontal lines
-            bool horizontalWin = false;
+            int horizontalWinsCount = 0;
 
             for (int row = 0; row < slots_Output.GetLength(0); row++)
             {
@@ -77,10 +103,18 @@ namespace Slot_Machine
                 // If isHorizontalWin is still true, there is a win on this row
                 if (isHorizontalWin)
                 {
-                    horizontalWin = true;
-                    // Break here to stop checking the other rows
-                    break;
+                    horizontalWinsCount++;
                 }
+            }
+
+            // Output the result
+            if (horizontalWinsCount > 0)
+            {
+                Console.WriteLine($"Congratulations! You won on {horizontalWinsCount} horizontal lines!");
+            }
+            else
+            {
+                Console.WriteLine("Sorry, you didn't win on any horizontal line. Better luck next time!");
             }
 
 
