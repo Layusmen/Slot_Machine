@@ -53,7 +53,7 @@ namespace Slot_Machine
                 if (isVerticalWin)
                 {
                     verticalWin = true;
-                    break; // No need to check other columns if there's a vertical win
+                    break; // Don't check other columns if there's a vertical win
                 }
             }
 
@@ -62,7 +62,6 @@ namespace Slot_Machine
 
             for (int row = 0; row < slots_Output.GetLength(0); row++)
             {
-                // Initialize a flag for the current row
                 bool isHorizontalWin = true;
 
                 for (int column = 1; column < slots_Output.GetLength(1); column++)
@@ -70,7 +69,6 @@ namespace Slot_Machine
                     // Compare the current symbol to the previous symbol in the row
                     if (slots_Output[row, column] != slots_Output[row, column - 1])
                     {
-                        // If any symbol is different, set the flag to false and break
                         isHorizontalWin = false;
                         break;
                     }
@@ -80,7 +78,7 @@ namespace Slot_Machine
                 if (isHorizontalWin)
                 {
                     horizontalWin = true;
-                    // You can also break here if you want to stop checking the other rows
+                    // Break here to stop checking the other rows
                     break;
                 }
             }
@@ -111,7 +109,7 @@ namespace Slot_Machine
                 if (slots_Output[i, ROW_COUNT - 1 - i] != slots_Output[0, ROW_COUNT - 1])
                 {
                     isSecondaryDiagonalWin = false;
-                    break;  // Add this break statement
+                    break; 
                 }
             }
             if (isSecondaryDiagonalWin)
