@@ -59,31 +59,31 @@ namespace Slot_Machine
 
             // Check for a win on horizontal lines
             bool horizontalWin = false;
-           
-                for (int row = 0; row < slots_Output.GetLength(0); row++)
+
+            for (int row = 0; row < slots_Output.GetLength(0); row++)
+            {
+                // Initialize a flag for the current row
+                bool isHorizontalWin = true;
+
+                for (int column = 1; column < slots_Output.GetLength(1); column++)
                 {
-                    // Initialize a flag for the current row
-                    bool isHorizontalWin = true;
-
-                    for (int column = 1; column < slots_Output.GetLength(1); column++)
+                    // Compare the current symbol to the previous symbol in the row
+                    if (slots_Output[row, column] != slots_Output[row, column - 1])
                     {
-                        // Compare the current symbol to the previous symbol in the row
-                        if (slots_Output[row, column] != slots_Output[row, column - 1])
-                        {
-                            // If any symbol is different, set the flag to false and break
-                            isHorizontalWin = false;
-                            break;
-                        }
-                    }
-
-                    // If isHorizontalWin is still true, there is a win on this row
-                    if (isHorizontalWin)
-                    {
-                        horizontalWin = true;
-                        // You can also break here if you want to stop checking the other rows
+                        // If any symbol is different, set the flag to false and break
+                        isHorizontalWin = false;
                         break;
                     }
                 }
+
+                // If isHorizontalWin is still true, there is a win on this row
+                if (isHorizontalWin)
+                {
+                    horizontalWin = true;
+                    // You can also break here if you want to stop checking the other rows
+                    break;
+                }
+            }
 
 
             // Check for a win on diagonal lines
@@ -121,13 +121,13 @@ namespace Slot_Machine
 
             // Check for a win and display the outcome
             if (horizontalWin || verticalWin || diagonalWin)
-                {
-                    Console.WriteLine("Congratulations! You won!");
-                }
-                else
-                {
-                    Console.WriteLine("Sorry, you didn't win on any line. Better luck next time!");
-                }
+            {
+                Console.WriteLine("Congratulations! You won!");
+            }
+            else
+            {
+                Console.WriteLine("Sorry, you didn't win on any line. Better luck next time!");
             }
         }
     }
+}
