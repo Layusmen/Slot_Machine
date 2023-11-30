@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-
 namespace Slot_Machine
 {
     static class Program
@@ -10,23 +8,11 @@ namespace Slot_Machine
             // Constants
             const int ROW_COUNT = 3;
             const int COLUMN_COUNT = 3;
-            const int COST_ONE_LINE = 1;
-            const int COST_TWO_LINES = 2;
-            const int COST_THREE_LINES = 3;
-            const int COST_THREE_LINES_ONE_VERTICAL = 4;
-            const int COST_DIAGONAL = 1;
-
-            const int WIN_AMOUNT_THREE_LINES = 20;
-            const int WIN_AMOUNT_TWO_LINES = 8;
-            const int WIN_AMOUNT_ONE_LINE = 4;
-            const int WIN_AMOUNT_THREE_LINES_ONE_VERTICAL = 100;
-            const int WIN_AMOUNT_DIAGONAL = 10;
-
-            decimal moneyLeft = 0; // Declare the variable
 
             // First messages
             Console.WriteLine("Welcome to the Amazing Slot Machine!");
             Console.WriteLine("Spin the reels and win big!");
+
 
             // Random Generator
             Random randomPickGenerator = new Random();
@@ -51,52 +37,54 @@ namespace Slot_Machine
                 Console.WriteLine();
             }
 
-            // Check for a win on horizontal lines
-            bool horizontalWin = false;
-            for (int row = 0; row < slots_Output.GetLength(0); row++)
-            {
-                // Initialize a flag for the current row
-                bool isHorizontalWin = true;
-
-                for (int column = 1; column < slots_Output.GetLength(1); column++)
-                {
-                    // Compare the current symbol to the first symbol in the row
-                    if (slots_Output[row, column] != slots_Output[row, 0])
-                    {
-                        // If any symbol is different, set the flag to false and continue
-                        isHorizontalWin = false;
-                        continue; // Added continue statement
-                    }
-                }
-
-                // If isHorizontalWin is still true, there is a win on this row
-                if (isHorizontalWin)
-                {
-                    horizontalWin = true;
-                    // You can also continue here if you want to stop checking the other rows
-                    continue; // Added continue statement
-                }
-            }
-
             // Check for a win on vertical lines
             bool verticalWin = false;
-            for (int column = 0; column < COLUMN_COUNT; column++)
+            for (int column = 0; column < slots_Output.GetLength(1); column++)
             {
                 bool isVerticalWin = true;
-                for (int row = 1; row < ROW_COUNT; row++)
+                for (int row = 1; row < slots_Output.GetLength(0); row++)
                 {
-                    if (slots_Output[row, column] != slots_Output[0, column])
+                    if (slots_Output[row, column] != slots_Output[row - 1, column])
                     {
                         isVerticalWin = false;
-                        continue; // Added continue statement
+                        break;
                     }
                 }
                 if (isVerticalWin)
                 {
                     verticalWin = true;
-                    continue; // Added continue statement
+                    break; // No need to check other columns if there's a vertical win
                 }
             }
+
+            // Check for a win on horizontal lines
+            bool horizontalWin = false;
+           
+                for (int row = 0; row < slots_Output.GetLength(0); row++)
+                {
+                    // Initialize a flag for the current row
+                    bool isHorizontalWin = true;
+
+                    for (int column = 1; column < slots_Output.GetLength(1); column++)
+                    {
+                        // Compare the current symbol to the previous symbol in the row
+                        if (slots_Output[row, column] != slots_Output[row, column - 1])
+                        {
+                            // If any symbol is different, set the flag to false and break
+                            isHorizontalWin = false;
+                            break;
+                        }
+                    }
+
+                    // If isHorizontalWin is still true, there is a win on this row
+                    if (isHorizontalWin)
+                    {
+                        horizontalWin = true;
+                        // You can also break here if you want to stop checking the other rows
+                        break;
+                    }
+                }
+
 
             // Check for a win on diagonal lines
             bool diagonalWin = false;
@@ -108,7 +96,7 @@ namespace Slot_Machine
                 if (slots_Output[i, i] != slots_Output[0, 0])
                 {
                     isMainDiagonalWin = false;
-                    continue;
+                    break;
                 }
             }
             if (isMainDiagonalWin)
@@ -120,10 +108,10 @@ namespace Slot_Machine
             bool isSecondaryDiagonalWin = true;
             for (int i = 1; i < ROW_COUNT; i++)
             {
-                if (slots_Output[i, COLUMN_COUNT - 1 - i] != slots_Output[0, COLUMN_COUNT - 1])
+                if (slots_Output[i, ROW_COUNT - 1 - i] != slots_Output[0, ROW_COUNT - 1])
                 {
                     isSecondaryDiagonalWin = false;
-                    continue; // Added continue statement
+                    break;  // Add this break statement
                 }
             }
             if (isSecondaryDiagonalWin)
@@ -132,63 +120,14 @@ namespace Slot_Machine
             }
 
             // Check for a win and display the outcome
-            int totalWins = (horizontalWin ? 1 : 0) + (verticalWin ? 1 : 0) + (diagonalWin ? 1 : 0);
-
-            switch (totalWins)
-            {
-                case 3:
-                    Console.WriteLine($"Congratulations! You won on three lines! You get ${COST_THREE_LINES * 3} and win ${WIN_AMOUNT_THREE_LINES}!");
-                    moneyLeft += WIN_AMOUNT_THREE_LINES - COST_THREE_LINES * 3;
-                    break;
-                case 2:
-                    Console.WriteLine($"Congratulations! You won on two lines! You get ${COST_TWO_LINES} and win ${WIN_AMOUNT_TWO_LINES}!");
-                    break;
-                case 1:
-                    Console.WriteLine($"Congratulations! You won on one line! You get ${COST_ONE_LINE} and win ${WIN_AMOUNT_ONE_LINE}!");
-                    break;
-                case 4:
-                    Console.WriteLine($"Congratulations! You won on three horizontal lines and one vertical line! You get ${COST_THREE_LINES_ONE_VERTICAL} and win ${WIN_AMOUNT_THREE_LINES_ONE_VERTICAL}!");
-                    break;
-                case 5:
-                    Console.WriteLine($"Congratulations! You won on the diagonal! You get ${COST_DIAGONAL} and win ${WIN_AMOUNT_DIAGONAL}!");
-                    break;
-                default:
-                    Console.WriteLine("Sorry, you didn't win on any line. Better luck next time!");
-                    break;
-            }
-
-            Console.WriteLine($"Your remaining balance: ${moneyLeft}");
-
-            Console.WriteLine("\nDo you want to play again? (y/n) \n");
-
-            string userInput = Console.ReadLine();
-
-            if (userInput != null && userInput.Trim().ToLower() == "y")
-            {
-                Console.WriteLine("How much money are you willing to play with? Enter the amount:");
-                if (decimal.TryParse(Console.ReadLine(), out decimal moneyLeftInput))
+            if (horizontalWin || verticalWin || diagonalWin)
                 {
-                    if (moneyLeftInput > 0)
-                    {
-                        moneyLeft = moneyLeftInput;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid input. Exiting the game.");
-                        return;
-                    }
+                    Console.WriteLine("Congratulations! You won!");
                 }
                 else
                 {
-                    Console.WriteLine("Invalid input. Exiting the game.");
-                    return;
+                    Console.WriteLine("Sorry, you didn't win on any line. Better luck next time!");
                 }
-            }
-            else
-            {
-                Console.WriteLine("Thanks for playing! Goodbye.");
-                Environment.Exit(0);
             }
         }
     }
-}
