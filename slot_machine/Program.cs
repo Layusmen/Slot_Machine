@@ -46,50 +46,55 @@ namespace Slot_Machine
             }
 
 
-            //Betting Options Statements
+            // Betting Options Statements
             if (bettingOption == "A")
             {
-
                 Console.WriteLine("You chose to play all three horizontal lines with $2: Earn $20 for top line wins, $5 for middle or base line wins.");
-                
-                //Check for a win on horizontal lines
-                int horizontalWinsCount = 0;
-                for (int innerRow = 0; innerRow < slots_Output.GetLength(0); innerRow++)
-                {
-                    bool isHorizontalWin = true;
 
+                // Check for wins on each horizontal line
+                bool isTopHorizontalWin = CheckHorizontalWin(0);
+                bool isMiddleHorizontalWin = CheckHorizontalWin(1);
+                bool isBaseHorizontalWin = CheckHorizontalWin(2);
+
+                // Check if there is a win on any horizontal line
+                if (isTopHorizontalWin || isMiddleHorizontalWin || isBaseHorizontalWin)
+                {
+                    Console.WriteLine("Congratulations! You win!");
+                }
+                else
+                {
+                    Console.WriteLine("You Lost! Try Again Next Time.");
+                }
+
+
+                // Function to check for a win on a specific horizontal line
+                bool CheckHorizontalWin(int row)
+                {
                     for (int column = 1; column < slots_Output.GetLength(1); column++)
                     {
-                        // Compare the current symbol to the previous symbol in the row
-                        if (slots_Output[innerRow, column] != slots_Output[innerRow, column - 1])
+                        // Compare the current symbol to the previous symbol in the specified row
+                        if (slots_Output[row, column] != slots_Output[row, column - 1])
                         {
-                            isHorizontalWin = false;
-                            break;
+                            return false; // No win on this line
                         }
                     }
 
-                    if (isHorizontalWin)
-                    {
-                        horizontalWinsCount++;
-                        Console.WriteLine("Horizontal win detected in row " + innerRow + 1);
-                        // You can customize the output message as needed
-                    }
-                    else
-                    {
-                        Console.WriteLine("You Lost! Try Again Next Time.");
-                    }
+                    Console.WriteLine($"Congratulations! You win on the {(row == 0 ? "top" : (row == 1 ? "middle" : "base"))} horizontal line!");
+                    return true; // Win detected on this line
                 }
 
             }
 
+
+
             else if (bettingOption == "H")
             { Console.WriteLine("You chose to play horizontal center line with $2: Earn $30."); }
-            
-            
+
+
             else if (bettingOption == "V") { Console.WriteLine("You chose to play all vertical lines with $2: Earn $20 for first line wins, $5 for second or third line wins."); }
             else if (bettingOption == "C") { Console.WriteLine("You chose to play vertical center line with $2: Earn $30."); }
             else if (bettingOption == "D") { Console.WriteLine("You chose to play diagonals with $2: Earn $20 for any winning combination."); }
-            else { Console.WriteLine("Invalid betting option. Please try again.");}
+            else { Console.WriteLine("Invalid betting option. Please try again."); }
                 
             //Check for a win on vertical lines
             int verticalWinsCount = 0;
@@ -147,6 +152,18 @@ namespace Slot_Machine
                 diagonalWinsCount++;
                 Console.WriteLine("Diagonal Win Detected on Secondary Diagonal");
             }
+
+            //Check for a win and display the outcome
+           /* 
+            * if (horizontalWinsCount > 0 || verticalWinsCount > 0 || diagonalWinsCount > 0)
+            {
+                Console.WriteLine("Congratulations! You won!");
+            }
+            else
+            {
+                Console.WriteLine("Sorry, you didn't win on any line. Better luck next time!");
+            }
+           */
         }
     }
 }
