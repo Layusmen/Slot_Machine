@@ -50,35 +50,31 @@ namespace Slot_Machine
             {
                 Console.WriteLine("\nYou chose to play all three horizontal lines with $2: Earn $20 for top line wins, $5 for middle or base line wins.");
 
-                // Check for wins on each horizontal line
-                bool isTopHorizontalWin = CheckHorizontalWin(0);
-                bool isMiddleHorizontalWin = CheckHorizontalWin(1);
-                bool isBaseHorizontalWin = CheckHorizontalWin(2);
-
-                // Check if there is a win on any horizontal line
-                if (isTopHorizontalWin || isMiddleHorizontalWin || isBaseHorizontalWin)
-                {
-                    Console.WriteLine("Congratulations!");
-                }
-                else
-                {
-                    Console.WriteLine("\nYou Lost! Try Again Next Time.");
-                }
-
                 // Function to check for a win on a specific horizontal line
-                bool CheckHorizontalWin(int row)
+                for (int row = 0; row < slots_Output.GetLength(0); row++)
                 {
+                    bool horizontalWin = true;
+
                     for (int column = 1; column < slots_Output.GetLength(1); column++)
                     {
-                        // Compare the current symbol to the previous symbol in the specified row
-                        if (slots_Output[row, column] != slots_Output[row, column - 1])
+                        // Compare the current symbol to the first symbol in the row
+                        if (slots_Output[row, 0] != slots_Output[row, column])
                         {
-                            return false; // No win on this line
+                            // If any symbol is different, set the flag to false and break
+                            horizontalWin = false; // No win on this line
+                            break;
                         }
                     }
 
-                    Console.WriteLine($" \nYou win on the {(row == 0 ? "top" : (row == 1 ? "middle" : "base"))} horizontal line!");
-                    return true; // Win detected on this line
+                    // If horizontalWin is still true, there is a win on this row
+                    if (horizontalWin)
+                    {
+                        Console.WriteLine($"Congratulations! You win on the {(row == 0 ? "left" : (row == 1 ? "middle" : "right"))} Horizontal line!");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"You did not win on the Horizontal lines!");
+                    }
                 }
             }
             
@@ -86,33 +82,31 @@ namespace Slot_Machine
             {
                 Console.WriteLine("\nYou chose to play horizontal center line with $2: Earn $30.");
 
-                // Check for wins on each horizontal line
-                bool isMiddleHorizontalWin = CheckHorizontalWin(1);
+                /// Function to check for a win on the specific vertical lines
+                for (int column = 0; column < slots_Output.GetLength(1); column++)
+                {
+                    bool verticalWin = true;
 
-                // Check if there is a win on any horizontal line
-                if (isMiddleHorizontalWin)
-                {
-                    Console.WriteLine("Congratulations!");
-                }
-                else
-                {
-                    Console.WriteLine("You Lost! Try Again Next Time.");
-                }
-
-                // Function to check for a win on a specific horizontal line
-                bool CheckHorizontalWin(int row)
-                {
-                    for (int column = 1; column < slots_Output.GetLength(1); column++)
+                    for (int row = 1; row < slots_Output.GetLength(0); row++)
                     {
-                        // Compare the current symbol to the previous symbol in the specified row
-                        if (slots_Output[row, column] != slots_Output[row, column - 1])
+                        // Compare the current symbol to the first symbol in the column
+                        if (slots_Output[0, column] != slots_Output[row, column])
                         {
-                            return false; // No win on this line
+                            // If any symbol is different, set the flag to false and break
+                            verticalWin = false; // No win on this line
+                            break;
                         }
                     }
 
-                    Console.WriteLine($"You win on the {(row == 1 ? "middle" : "")} horizontal line!");
-                    return true; // Win detected on this line
+                    // If verticalWin is true, there is a win on this column
+                    if (verticalWin)
+                    {
+                        Console.WriteLine($"Congratulations! You win on the {(column == 0 ? "top" : (column == 1 ? "middle" : "bottom"))} horizontal line!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("You did not win on the vertical line!");
+                    }
                 }
             }
             
