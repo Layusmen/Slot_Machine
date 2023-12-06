@@ -17,6 +17,14 @@ namespace Slot_Machine
                 const char HOR_CENTER_LINE = 'V';
                 const char VER_CENTER_LINE = 'C';
                 const char DIAGONAL_LINE = 'D';
+                const decimal INITIAL_BALANCE = 10.00M;
+
+                const decimal BET_AMOUNT = 2.00M;
+                const decimal FIRST_WIN = 20.00M;
+                const decimal SECOND_WIN = 5.00M;
+                const decimal CENTER_WIN = 30.00M;
+
+
 
                 //First messages
                 Console.WriteLine("Welcome to the Amazing Slot Machine!");
@@ -28,7 +36,7 @@ namespace Slot_Machine
                 Console.WriteLine("- (H) Play all vertical lines with $2: Earn $20 for first line wins, $5 for second or third line wins.");
                 Console.WriteLine("- (V) Play horizontal center line alone with $2: Earn $30.");
                 Console.WriteLine("- (C) Play vertical center line with $2: Earn $30.");
-                Console.WriteLine("- (D) Play diagonals with $2: Earn $20 for any and $30 for the twowinning combination.");
+                Console.WriteLine("- (D) Play diagonals with $2: Earn $20 for any and $30 for the two winning combination.");
 
                 Console.Write("\nPlease choose a betting option (A, H, V, C, D): ");
                 char bettingOption = char.ToUpper(Console.ReadKey().KeyChar);
@@ -63,9 +71,13 @@ namespace Slot_Machine
                 }
 
                 // Player's initial balance
-                decimal initialBalance = 10.00M;
-                decimal balance = initialBalance;
-
+               
+                decimal balance = INITIAL_BALANCE;
+                if (balance < BET_AMOUNT)
+                {
+                    Console.WriteLine("\nInsufficient funds to play. Game over!");
+                    break;
+                }
                 //Horizonal win option
                 if (bettingOption == HORIZONTAL_LINE)
                 {
@@ -97,13 +109,13 @@ namespace Slot_Machine
                             switch (row)
                             {
                                 case 0:
-                                    balance += 20.00M; // Assuming $20 for a win on the first row
+                                    balance += FIRST_WIN; // Assuming $20 for a win on the first row
                                     break;
                                 case 1:
-                                    balance += 5.00M; // Assuming $5 for a win on the second row
+                                    balance += SECOND_WIN; // Assuming $5 for a win on the second row
                                     break;
                                 case 2:
-                                    balance += 5.00M; // Assuming $5 for a win on the third row
+                                    balance += SECOND_WIN; // Assuming $5 for a win on the third row
                                     break;
                             }
 
@@ -116,11 +128,11 @@ namespace Slot_Machine
                     {
                         Console.WriteLine($"\nYou did not win on the Horizontal lines!");
                         // Subtract the bet amount from the balance
-                        balance -= 2.00M;
+                        balance -= BET_AMOUNT;
                     }
 
                     // Display the updated balance
-                    Console.WriteLine($"Your current balance: ${balance}");
+                    Console.WriteLine($"\nYour current balance: ${balance}");
                 }
 
                 //Check for a win on the vertical lines
@@ -152,13 +164,13 @@ namespace Slot_Machine
                             switch (column)
                             {
                                 case 0:
-                                    balance += 20.00M; // Assuming $20 for a win on the first row
+                                    balance += FIRST_WIN; // Assuming $20 for a win on the first row
                                     break;
                                 case 1:
-                                    balance += 5.00M; // Assuming $5 for a win on the second row
+                                    balance += SECOND_WIN; // Assuming $5 for a win on the second row
                                     break;
                                 case 2:
-                                    balance += 5.00M; // Assuming $5 for a win on the third row
+                                    balance += SECOND_WIN; // Assuming $5 for a win on the third row
                                     break;
                             }
 
@@ -170,10 +182,10 @@ namespace Slot_Machine
                     {
                         Console.WriteLine("\nYou did not win on the vertical line!");
                         // Subtract the bet amount from the balance
-                        balance -= 2.00M;
+                        balance -= BET_AMOUNT;
                     }
                     // Display the updated balance
-                    Console.WriteLine($"Your current balance: ${balance}");
+                    Console.WriteLine($"\nYour current balance: ${balance}");
                 }
 
                 //Check for a win on the horizontal center line.
@@ -201,7 +213,7 @@ namespace Slot_Machine
                         {
                             Console.WriteLine($"\nCongratulations! You win on the horizontal middle line!");
 
-                            balance += 20.00M; // Assuming $20 for a win on the first row
+                            balance += FIRST_WIN; // Assuming $20 for a win on the first row
                             break;
                         }
                     }
@@ -211,7 +223,7 @@ namespace Slot_Machine
                         Console.WriteLine("\nYou did not win on the horizontal middle line");
                     }
                     // Display the updated balance
-                    Console.WriteLine($"Your current balance: ${balance}");
+                    Console.WriteLine($"\nYour current balance: ${balance}");
                 }
 
                 ///Check for a win on the Vertical Center line 
@@ -240,18 +252,18 @@ namespace Slot_Machine
                             Console.WriteLine($"\nCongratulations! You win on the {(column == 1 ? "center" : "")} vertical line!");
 
                             // Subtract the bet amount from the balance
-                            balance += 30.00M;
+                            balance += CENTER_WIN;
                         }
                     }
                     if (!verticalCenterWin)
                     {
                         Console.WriteLine("\nYou did not win on the Vertical Center line");
                         // Subtract the bet amount from the balance
-                        balance -= 2.00M;
+                        balance -= BET_AMOUNT;
                     }
 
                     // Display the updated balance
-                    Console.WriteLine($"Your current balance: ${balance}");
+                    Console.WriteLine($"\nYour current balance: ${balance}");
 
                 }
 
@@ -273,7 +285,7 @@ namespace Slot_Machine
                     if (isMainDiagonalWin)
                     {
                         Console.WriteLine("\nWin Detected on Main Diagonal");
-                        balance += 20.00M; // Assuming $20 for a win on the first row
+                        balance += FIRST_WIN; // Assuming $20 for a win on the first row
                     }
 
                     //Check the secondary diagonal (top-right to bottom-left)
@@ -289,7 +301,7 @@ namespace Slot_Machine
                     if (isSecondaryDiagonalWin)
                     {
                         Console.WriteLine("\nWin Detected on Secondary Diagonal");
-                        balance += 20.00M; // Assuming $20 for a win on the first row
+                        balance += FIRST_WIN; // Assuming $20 for a win on the first row
                     }
                     else if (!isSecondaryDiagonalWin && !isMainDiagonalWin)
                     {
@@ -299,16 +311,16 @@ namespace Slot_Machine
                     {
                         // Handle the case when there's a win on both diagonals
                         Console.WriteLine("\nWin Detected on Both Diagonals");
-                        balance += 30.00M; // Assuming $20 for a win on the first row
+                        balance += CENTER_WIN; // Assuming $20 for a win on the first row
                     }
 
                     else
                     {
                         Console.WriteLine("\nNo win Detected on any of the Diagonal lines");
-                        balance -= 2.00M; // Subtract the bet amount from the balance if no win is detected on any of the diagonal lines.
+                        balance -= BET_AMOUNT; // Subtract the bet amount from the balance if no win is detected on any of the diagonal lines.
                     }
                     // Display the updated balance
-                    Console.WriteLine($"Your current balance: ${balance}");
+                    Console.WriteLine($"\nYour current balance: ${balance}");
                 }
 
                 else
@@ -325,7 +337,7 @@ namespace Slot_Machine
                 // Clear the console for the next round
                 Console.Clear();
                 // Restore the initial balance for the next play if user chooses to play again
-                balance = playAgain ? initialBalance : balance;
+                balance = playAgain ? INITIAL_BALANCE : balance;
             }
             Console.WriteLine("Thanks for playing!");
         }
