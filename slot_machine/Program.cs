@@ -6,26 +6,26 @@ namespace Slot_Machine
         static void Main(string[] args)
         {
             bool playAgain = true;
+            //Constants
+            const int ROW_COUNT = 3;
+            const int COLUMN_COUNT = 3;
+            const char HORIZONTAL_LINE = 'A';
+            const char VERTICAL_LINE = 'H';
+            const char HOR_CENTER_LINE = 'V';
+            const char VER_CENTER_LINE = 'C';
+            const char DIAGONAL_LINE = 'D';
+            const decimal INITIAL_BALANCE = 10.00M;
+
+            const decimal BET_AMOUNT = 2.00M;
+            const decimal FIRST_WIN = 20.00M;
+            const decimal SECOND_WIN = 5.00M;
+            const decimal CENTER_WIN = 30.00M;
+            // Player's initial balance
+
+            decimal balance = INITIAL_BALANCE;
 
             while (playAgain)
             {
-                //Constants
-                const int ROW_COUNT = 3;
-                const int COLUMN_COUNT = 3;
-                const char HORIZONTAL_LINE = 'A';
-                const char VERTICAL_LINE = 'H';
-                const char HOR_CENTER_LINE = 'V';
-                const char VER_CENTER_LINE = 'C';
-                const char DIAGONAL_LINE = 'D';
-                const decimal INITIAL_BALANCE = 10.00M;
-
-                const decimal BET_AMOUNT = 2.00M;
-                const decimal FIRST_WIN = 20.00M;
-                const decimal SECOND_WIN = 5.00M;
-                const decimal CENTER_WIN = 30.00M;
-
-
-
                 //First messages
                 Console.WriteLine("Welcome to the Amazing Slot Machine!");
                 Console.WriteLine("Spin the reels and win big!");
@@ -70,9 +70,9 @@ namespace Slot_Machine
 
                 }
 
-                // Player's initial balance
-               
-                decimal balance = INITIAL_BALANCE;
+                
+
+                
                 if (balance < BET_AMOUNT)
                 {
                     Console.WriteLine("\nInsufficient funds to play. Game over!");
@@ -336,10 +336,20 @@ namespace Slot_Machine
 
                 // Clear the console for the next round
                 Console.Clear();
+                
+
                 // Restore the initial balance for the next play if user chooses to play again
                 balance = playAgain ? INITIAL_BALANCE : balance;
+
+                if (playAgain == true)
+                {
+                    // Subtract the bet amount from the balance
+                    balance -= BET_AMOUNT;
+                }
+
+                Console.WriteLine($"\nYour starting balance: ${INITIAL_BALANCE}");
+                Console.WriteLine("Thanks for playing!");
             }
-            Console.WriteLine("Thanks for playing!");
         }
     }
 }
