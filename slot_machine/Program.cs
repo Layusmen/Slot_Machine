@@ -13,7 +13,11 @@ namespace Slot_Machine
                 //Constants
                 const int ROW_COUNT = 3;
                 const int COLUMN_COUNT = 3;
-
+                const char HORIZONAL_LINE = 'A';
+                const char VERTICAL_LINE = 'H';
+                const char HOR_CENTER_LINE = 'V';
+                const char VER_CENTER_LINE = 'C';
+                const char DIAGONAL_LINE = 'D';
                 //First messages
                 Console.WriteLine("Welcome to the Amazing Slot Machine!");
                 Console.WriteLine("Spin the reels and win big!");
@@ -31,7 +35,7 @@ namespace Slot_Machine
                 Console.WriteLine();
 
                 //Check if the betting option is valid
-                if (bettingOption != 'A' && bettingOption != 'H' && bettingOption != 'V' && bettingOption != 'C' && bettingOption != 'D')
+                if (bettingOption != HORIZONAL_LINE && bettingOption != VERTICAL_LINE && bettingOption != HOR_CENTER_LINE && bettingOption != VER_CENTER_LINE && bettingOption != DIAGONAL_LINE)
                 {
                     Console.WriteLine("Invalid betting option. Please try again.");
                     return;
@@ -58,7 +62,7 @@ namespace Slot_Machine
 
                 }
 
-                if (bettingOption == 'A')
+                if (bettingOption == HORIZONAL_LINE)
                 {
                     Console.WriteLine("\nYou chose to play all three horizontal lines with $2: Earn $20 for top line wins, $5 for middle or base line wins.");
 
@@ -95,7 +99,7 @@ namespace Slot_Machine
                 }
 
                 //Check for a win on the vertical lines
-                else if (bettingOption == 'H')
+                else if (bettingOption == VERTICAL_LINE)
                 {
                     Console.WriteLine("\nPlay all vertical lines with $2: Earn $20 for first line wins, $5 for second or third line wins.");
 
@@ -118,18 +122,18 @@ namespace Slot_Machine
                         // If verticalWin is true, there is a win on this column
                         if (verticalWin)
                         {
-                            Console.WriteLine($"Congratulations! You win on the {(column == 0 ? "top" : (column == 1 ? "middle" : "bottom"))} horizontal line!");
+                            Console.WriteLine($"\nCongratulations! You win on the {(column == 0 ? "top" : (column == 1 ? "middle" : "bottom"))} horizontal line!");
                         }
 
                     }
                     if (!verticalWin)
                     {
-                        Console.WriteLine("You did not win on the vertical line!");
+                        Console.WriteLine("\nYou did not win on the vertical line!");
                     }
                 }
 
                 //Check for a win on the horizontal center line.
-                else if (bettingOption == 'V')
+                else if (bettingOption == HOR_CENTER_LINE)
                 {
                     Console.WriteLine("\nPlay horizontal center line alone with $2: Earn $30.");
 
@@ -151,18 +155,18 @@ namespace Slot_Machine
                         }
                         if (middleHorizontalWin)
                         {
-                            Console.WriteLine($"Congratulations! You win on the horizontal middle line!");
+                            Console.WriteLine($"\nCongratulations! You win on the horizontal middle line!");
                         }
                     }
 
                     if (!middleHorizontalWin)
                     {
-                        Console.WriteLine("You did not win on the horizontal middle line");
+                        Console.WriteLine("\nYou did not win on the horizontal middle line");
                     }
                 }
 
                 ///Check for a win on the Vertical Center line 
-                else if (bettingOption == 'C')
+                else if (bettingOption == VER_CENTER_LINE)
                 {
                     Console.WriteLine("\nYou chose to play vertical center line with $2: Earn $30.");
 
@@ -184,18 +188,18 @@ namespace Slot_Machine
 
                         if (verticalCenterWin)
                         {
-                            Console.WriteLine($"Congratulations! You win on the {(column == 1 ? "center" : "")} vertical line!");
+                            Console.WriteLine($"\nCongratulations! You win on the {(column == 1 ? "center" : "")} vertical line!");
                         }
                     }
                     if (!verticalCenterWin)
                     {
-                        Console.WriteLine("You did not win on the Vertical Center line");
+                        Console.WriteLine("\nYou did not win on the Vertical Center line");
                     }
 
                 }
 
                 //Check for a win on diagonal lines
-                else if (bettingOption == 'D')
+                else if (bettingOption == DIAGONAL_LINE)
                 {
                     //set diagonal win at zero
                     //int diagonalWinsCount = 0;
