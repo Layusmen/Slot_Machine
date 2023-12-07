@@ -97,7 +97,7 @@ namespace Slot_Machine
                             horizontalWin = true; // Set to true 
                         }
 
-                        // If horizontalWin is true, there is a win on this row
+                        // Check if there is a win on this row
                         if (horizontalWin)
                         {
                             Console.WriteLine($"\nCongratulations! You win on the {(row == 0 ? "left" : (row == 1 ? "middle" : "right"))} Horizontal line!");
