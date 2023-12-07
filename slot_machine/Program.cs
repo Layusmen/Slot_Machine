@@ -20,8 +20,8 @@ namespace Slot_Machine
             const decimal FIRST_WIN = 20.00M;
             const decimal SECOND_WIN = 5.00M;
             const decimal CENTER_WIN = 30.00M;
+            
             // Player's initial balance
-
             decimal balance = INITIAL_BALANCE;
 
             while (playAgain)
@@ -70,9 +70,6 @@ namespace Slot_Machine
 
                 }
 
-                
-
-                
                 if (balance < BET_AMOUNT)
                 {
                     Console.WriteLine("\nInsufficient funds to play. Game over!");
@@ -193,7 +190,6 @@ namespace Slot_Machine
                 {
                     Console.WriteLine("\nPlay horizontal center line alone with $2: Earn $30.");
 
-
                     bool middleHorizontalWin = true;
 
                     for (int column = 0; column < slots_Output.GetLength(1); column++)
@@ -221,6 +217,7 @@ namespace Slot_Machine
                     if (!middleHorizontalWin)
                     {
                         Console.WriteLine("\nYou did not win on the horizontal middle line");
+                        balance -= BET_AMOUNT;
                     }
                     // Display the updated balance
                     Console.WriteLine($"\nYour current balance: ${balance}");
@@ -251,7 +248,7 @@ namespace Slot_Machine
                         {
                             Console.WriteLine($"\nCongratulations! You win on the {(column == 1 ? "center" : "")} vertical line!");
 
-                            // Subtract the bet amount from the balance
+                            // Add win amount to the balance
                             balance += CENTER_WIN;
                         }
                     }
@@ -298,7 +295,13 @@ namespace Slot_Machine
                             break;
                         }
                     }
-                    if (isSecondaryDiagonalWin)
+                    if (isSecondaryDiagonalWin && isMainDiagonalWin)
+                    {
+                        // Handle the case when there's a win on both diagonals
+                        Console.WriteLine("\nWin Detected on Both Diagonals");
+                        balance += CENTER_WIN; // Assuming $20 for a win on the first row
+                    }
+                    else if (isSecondaryDiagonalWin)
                     {
                         Console.WriteLine("\nWin Detected on Secondary Diagonal");
                         balance += FIRST_WIN; // Assuming $20 for a win on the first row
@@ -306,12 +309,7 @@ namespace Slot_Machine
                     else if (!isSecondaryDiagonalWin && !isMainDiagonalWin)
                     {
                         Console.WriteLine("\nNo win Detected on any of the Diagonal lines");
-                    }
-                    else if (isSecondaryDiagonalWin && isMainDiagonalWin)
-                    {
-                        // Handle the case when there's a win on both diagonals
-                        Console.WriteLine("\nWin Detected on Both Diagonals");
-                        balance += CENTER_WIN; // Assuming $20 for a win on the first row
+                        balance -= BET_AMOUNT;
                     }
 
                     else
@@ -336,19 +334,9 @@ namespace Slot_Machine
 
                 // Clear the console for the next round
                 Console.Clear();
-                
 
                 // Restore the initial balance for the next play if user chooses to play again
-                balance = playAgain ? INITIAL_BALANCE : balance;
-
-                if (playAgain == true)
-                {
-                    // Subtract the bet amount from the balance
-                    balance -= BET_AMOUNT;
-                }
-
-                Console.WriteLine($"\nYour starting balance: ${INITIAL_BALANCE}");
-                Console.WriteLine("Thanks for playing!");
+                balance = playAgain ? balance : balance;
             }
         }
     }
