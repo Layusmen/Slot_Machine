@@ -3,13 +3,9 @@ namespace Slot_Machine
 {
     static class Program
     {
-        //Random Generator
-        public static readonly Random randomPickGenerator = new Random();
-        public static readonly List<char> slotSymbols = new List<char> { 'A', '1', '5', '7', '$', 'M', '8', '9', '!', '#', 'Q', '&', 'C', 'S', 'Y', 'V', 'W', 'R', 'L', 'F' };
-
         static void Main(string[] args)
         {
-
+            bool playAgain = true;
             //Constants
             const int ROW_COUNT = 3;
             const int COLUMN_COUNT = 3;
@@ -18,17 +14,16 @@ namespace Slot_Machine
             const char HOR_CENTER_LINE = 'V';
             const char VER_CENTER_LINE = 'C';
             const char DIAGONAL_LINE = 'D';
-
             const decimal INITIAL_BALANCE = 10.00M;
+
             const decimal BET_AMOUNT = 2.00M;
             const decimal FIRST_WIN = 20.00M;
             const decimal SECOND_WIN = 5.00M;
             const decimal CENTER_WIN = 30.00M;
-
+            
             // Player's initial balance
             decimal balance = INITIAL_BALANCE;
 
-            bool playAgain = true; 
             while (playAgain)
             {
                 //First messages
@@ -47,12 +42,16 @@ namespace Slot_Machine
                 char bettingOption = char.ToUpper(Console.ReadKey().KeyChar);
                 Console.WriteLine();
 
-                //Check for correct betting option
+                //Check if the betting option is valid
                 if (bettingOption != HORIZONTAL_LINE && bettingOption != VERTICAL_LINE && bettingOption != HOR_CENTER_LINE && bettingOption != VER_CENTER_LINE && bettingOption != DIAGONAL_LINE)
                 {
                     Console.WriteLine("Invalid betting option. Please try again.");
                     return;
                 }
+
+                //Random Generator
+                Random randomPickGenerator = new Random();
+                List<char> slotSymbols = new List<char> { 'A', '1', '5', '7', '$', 'M', '8', '9', '!', '#', 'Q', '&', 'C', 'S', 'Y', 'V', 'W', 'R', 'L', 'F' };
                 char[,] slots_Output = new char[ROW_COUNT, COLUMN_COUNT];
 
                 //Display the result
