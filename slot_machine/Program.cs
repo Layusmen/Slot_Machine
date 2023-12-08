@@ -201,7 +201,7 @@ namespace Slot_Machine
                             // Compare the current symbol to the previous symbol in the specified column
                             if (slots_Output[row, column] != slots_Output[row - 1, column])
                             {
-                                middleHorizontalWin = false; // No win on this line
+                                middleHorizontalWin = false; 
                                 break;
                             }
                         }
