@@ -103,7 +103,6 @@ namespace Slot_Machine
                             Console.WriteLine($"\nCongratulations! You win on the {(row == 0 ? "left" : (row == 1 ? "middle" : "right"))} Horizontal line!");
 
                             // Update balance
-
                             if (row == 0)
                             {
                                 balance += FIRST_WIN;  
