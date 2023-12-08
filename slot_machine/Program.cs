@@ -103,20 +103,17 @@ namespace Slot_Machine
                             Console.WriteLine($"\nCongratulations! You win on the {(row == 0 ? "left" : (row == 1 ? "middle" : "right"))} Horizontal line!");
 
                             // Update balance
-                            switch (row)
-                            {
-                                case 0:
-                                    balance += FIRST_WIN; // Assuming $20 for a win on the first row
-                                    break;
-                                case 1:
-                                    balance += SECOND_WIN; // Assuming $5 for a win on the second row
-                                    break;
-                                case 2:
-                                    balance += SECOND_WIN; // Assuming $5 for a win on the third row
-                                    break;
-                            }
 
-                            break; // Exit the loop if a win is found
+                            if (row == 0)
+                            {
+                                balance += FIRST_WIN;  
+                            }
+                            else
+                            {
+                                balance += SECOND_WIN;  
+                            }
+                            // Exit the loop if a win is found
+                            break;
                         }
                     }
 
