@@ -15,8 +15,8 @@ namespace Slot_Machine
             const char HOR_CENTER_LINE = 'V';
             const char VER_CENTER_LINE = 'C';
             const char DIAGONAL_LINE = 'D';
-            const decimal INITIAL_BALANCE = 10.00M;
 
+            const decimal INITIAL_BALANCE = 10.00M;
             const decimal BET_AMOUNT = 2.00M;
             const decimal FIRST_WIN = 20.00M;
             const decimal SECOND_WIN = 5.00M;
@@ -113,9 +113,6 @@ namespace Slot_Machine
                             {
                                 balance += SECOND_WIN;
                             }
-
-                            // Exit the loop if a win is found
-                            break;
                         }
                     }
 
@@ -168,9 +165,6 @@ namespace Slot_Machine
                             {
                                 balance += SECOND_WIN;
                             }
-
-                            // Exit the loop if a win is found
-                            break;
                         }
 
                     }
