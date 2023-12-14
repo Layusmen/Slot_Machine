@@ -71,7 +71,6 @@ namespace Slot_Machine
                     Console.WriteLine();
 
                 }
-
                 if (balance < BET_AMOUNT)
                 {
                     Console.WriteLine("\nInsufficient funds to play. Game over!");
@@ -134,7 +133,6 @@ namespace Slot_Machine
                 {
                     Console.WriteLine("\nPlay all vertical lines with $2: Earn $20 for first line wins, $5 for second or third line wins.");
 
-
                     bool verticalWin = true;
 
                     // Function to check for a win on the specific vertical lines
@@ -188,28 +186,25 @@ namespace Slot_Machine
 
                     bool middleHorizontalWin = true;
 
-                    for (int column = 0; column < slots_Output.GetLength(1); column++)
+                    // Check for a win on the second horizontal row
+                    for (int column = 1; column < slots_Output.GetLength(1); column++)
                     {
 
-                        // check for a win on a specific vertical line
-                        for (int row = 1; row < slots_Output.GetLength(0); row++)
+                        // Compare the current symbol to the previous symbol in the specified column
+                        if (slots_Output[1, column] != slots_Output[1, 0])
                         {
-
-                            // Compare the current symbol to the previous symbol in the specified column
-                            if (slots_Output[row, column] != slots_Output[row - 1, column])
-                            {
-                                middleHorizontalWin = false;
-                                break;
-                            }
-                        }
-                        if (middleHorizontalWin)
-                        {
-                            Console.WriteLine($"\nCongratulations! You win on the horizontal middle line!");
-
-                            balance += FIRST_WIN; // Assuming $20 for a win on the first row
+                            middleHorizontalWin = false;
                             break;
                         }
                     }
+                    if (middleHorizontalWin)
+                    {
+                        Console.WriteLine($"\nCongratulations! You win on the horizontal middle line!");
+
+                        balance += FIRST_WIN; // Assuming $20 for a win on the first row
+                        break;
+                    }
+
 
                     if (!middleHorizontalWin)
                     {
@@ -229,26 +224,21 @@ namespace Slot_Machine
                     // Check for a win on a specific vertical line
                     bool verticalCenterWin = true;
 
-                    for (int column = 0; column < slots_Output.GetLength(1); column++)
+                    for (int row = 1; row < slots_Output.GetLength(0); row++)
+                    {   // Compare the current symbol to the previous symbol in the specified column
+                        if (slots_Output[row, 1] != slots_Output[0, 1])
+                        {
+                            verticalCenterWin = false; // No win on this line
+                            break;
+                        }
+                    }
+
+                    if (verticalCenterWin)
                     {
+                        Console.WriteLine($"\nCongratulations! You win on the center vertical line!");
 
-                        for (int row = 1; row < slots_Output.GetLength(0); row++)
-                        {
-                            // Compare the current symbol to the previous symbol in the specified column
-                            if (slots_Output[row, column] != slots_Output[row - 1, column])
-                            {
-                                verticalCenterWin = false; // No win on this line
-                                break;
-                            }
-                        }
-
-                        if (verticalCenterWin)
-                        {
-                            Console.WriteLine($"\nCongratulations! You win on the {(column == 1 ? "center" : "")} vertical line!");
-
-                            // Add win amount to the balance
-                            balance += CENTER_WIN;
-                        }
+                        // Add win amount to the balance
+                        balance += CENTER_WIN;
                     }
                     if (!verticalCenterWin)
                     {
